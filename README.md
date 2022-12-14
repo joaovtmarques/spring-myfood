@@ -2,24 +2,15 @@
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
-<br>
-
-<p align="left">Sistema desenvolvido com Spring Framework.</p>
-
-<br>
-
 ## 👨‍💻 Tecnologias
 
 #### Este projeto foi desenvolvido com as seguintes tecnologias e bibliotecas:
-
-<!--ts-->
 
 - [Spring](https://spring.io/)
 - [Java](https://www.java.com/pt-BR/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Lombok](https://projectlombok.org/)
 - [Swagger](https://swagger.io/)
-<!--te-->
 
 <br>
 
