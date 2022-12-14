@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,4 +26,7 @@ public class Restaurant {
 
   @Column(name = "freight_rate")
   private BigDecimal freightRate;
+
+  @ManyToOne
+  private Kitchen kitchen;
 }
