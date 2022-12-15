@@ -19,7 +19,7 @@ public class KitchenRepositoryImpl implements KitchenRepository {
 
   @Override
   public List<Kitchen> findAll() {
-    return manager.createQuery("from kitchen", Kitchen.class).getResultList();
+    return manager.createQuery("from Kitchen", Kitchen.class).getResultList();
   }
 
   @Override
@@ -39,7 +39,4 @@ public class KitchenRepositoryImpl implements KitchenRepository {
     kitchen = findById(kitchen.getId());
     manager.remove(kitchen);
   }
-  
-  
-
 }
