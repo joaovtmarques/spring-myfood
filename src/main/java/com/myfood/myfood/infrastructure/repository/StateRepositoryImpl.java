@@ -19,7 +19,7 @@ public class StateRepositoryImpl implements StateRepository {
 
   @Override
   public List<State> findAll() {
-    return manager.createQuery("from state", State.class).getResultList();
+    return manager.createQuery("from State", State.class).getResultList();
   }
 
   @Override
