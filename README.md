@@ -25,7 +25,7 @@
 ### Pré-requisitos
 
 Para clonar e rodar a aplicação, é necessário ter instalado em sua máquina as ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e [Yarn](https://yarnpkg.com/) (opcional).
+[Git](https://git-scm.com), [Java](https://www.java.com/pt-BR/) e [Maven](https://maven.apache.org/) (opcional).
 Além disso, é bom que se tenha um bom editor de código, como o [VSCode](https://code.visualstudio.com/)
 
 ### 🎲 Rodando a aplicação
