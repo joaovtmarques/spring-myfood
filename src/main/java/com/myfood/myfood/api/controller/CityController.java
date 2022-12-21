@@ -16,35 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myfood.myfood.domain.exception.EntityNotFoundException;
 import com.myfood.myfood.domain.model.City;
-import com.myfood.myfood.domain.repository.CityRepository;
 import com.myfood.myfood.domain.service.CityService;
 
 @RestController
 @RequestMapping("/cities")
 public class CityController {
-  
-  @Autowired
-  private CityRepository cityRepository;
 
   @Autowired
   private CityService cityService;
 
   @GetMapping
   public List<City> findAll() {
-    return cityRepository.findAll();
+    return cityService.findAll();
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<City> findOne(@PathVariable Long id) {
+  public ResponseEntity<?> findOne(@PathVariable Long id) {
+    try {
+      City city = cityService.findById(id);
 
-    City city = cityRepository.findById(id);
-
-    if(city != null) {
       return ResponseEntity.ok().body(city);
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
-
-    return ResponseEntity.notFound().build();
-
   }
 
   @PostMapping
@@ -57,7 +51,7 @@ public class CityController {
   @PutMapping("/{id}")
   public ResponseEntity<?> update(@PathVariable Long id, @RequestBody City city) {
     try {
-      City savedCity = cityRepository.findById(id);
+      City savedCity = cityService.findById(id);
 
       if(savedCity != null) {
         BeanUtils.copyProperties(city, savedCity, "id");
@@ -72,5 +66,4 @@ public class CityController {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
-
 }
