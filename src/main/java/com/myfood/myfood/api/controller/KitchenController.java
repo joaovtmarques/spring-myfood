@@ -1,6 +1,7 @@
 package com.myfood.myfood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +35,12 @@ public class KitchenController {
 
   @GetMapping
   public List<Kitchen> findAll() {
-    return kitchenRepository.findAll();
+    return kitchenService.findAll();
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Kitchen> findById(@PathVariable Long id) {
-    Kitchen kitchen = kitchenRepository.findById(id);
-		
-		if (kitchen != null) {
-			return ResponseEntity.ok(kitchen);
-		}
-		
-		return ResponseEntity.notFound().build();
+  public Kitchen findById(@PathVariable Long id) {
+    return kitchenService.findById(id);
   }
 
   @PostMapping
@@ -56,14 +51,14 @@ public class KitchenController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Kitchen> update(@PathVariable Long id, @RequestBody Kitchen kitchen) {
-    Kitchen savedKitchen = kitchenRepository.findById(id);
+    Optional<Kitchen> savedKitchen = kitchenRepository.findById(id);
   
-    if(savedKitchen != null) {
-      BeanUtils.copyProperties(kitchen, savedKitchen, "id");
+    if(savedKitchen.isPresent()) {
+      BeanUtils.copyProperties(kitchen, savedKitchen.get(), "id");
     
-      savedKitchen = kitchenService.save(savedKitchen);
+      Kitchen newKitchen = kitchenService.save(savedKitchen.get());
     
-      return ResponseEntity.ok(savedKitchen);
+      return ResponseEntity.ok(newKitchen);
     }
 
     return ResponseEntity.notFound().build();

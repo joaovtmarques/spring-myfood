@@ -1,5 +1,7 @@
 package com.myfood.myfood.domain.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,13 +18,21 @@ public class KitchenService {
   @Autowired
   private KitchenRepository kitchenRepository;
 
+  public List<Kitchen> findAll() {
+    return kitchenRepository.findAll();
+  }
+
+  public Kitchen findById(Long id) {
+    return  kitchenRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Kitchen %d not found", id)));
+  }
+
   public Kitchen save(Kitchen kitchen) {
     return kitchenRepository.save(kitchen);
   }
 
   public void remove(Long id) {
     try {
-      kitchenRepository.remove(id);
+      kitchenRepository.deleteById(id);
     } catch(EmptyResultDataAccessException e) {
       throw new EntityNotFoundException(String.format("Kitchen %d not found", id));
     } catch (DataIntegrityViolationException e) {
