@@ -39,8 +39,14 @@ public class KitchenController {
   }
 
   @GetMapping("/{id}")
-  public Kitchen findById(@PathVariable Long id) {
-    return kitchenService.findById(id);
+  public ResponseEntity<?> findById(@PathVariable Long id) {
+    try {
+      Kitchen kitchen = kitchenService.findById(id);
+
+      return ResponseEntity.ok().body(kitchen);
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 
   @PostMapping

@@ -31,8 +31,13 @@ public class RestaurantController {
   }
 
   @GetMapping("/{id}")
-  public Restaurant findById(@PathVariable Long id) {
-    return restaurantService.findById(id);
+  public ResponseEntity<?> findById(@PathVariable Long id) {
+    try {
+			Restaurant restaurant = restaurantService.findById(id);
+			return ResponseEntity.ok().body(restaurant);
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
   }
 
   @PostMapping
