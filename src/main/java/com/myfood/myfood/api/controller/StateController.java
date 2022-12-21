@@ -19,34 +19,29 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myfood.myfood.domain.exception.EntityInUseException;
 import com.myfood.myfood.domain.exception.EntityNotFoundException;
 import com.myfood.myfood.domain.model.State;
-import com.myfood.myfood.domain.repository.StateRepository;
 import com.myfood.myfood.domain.service.StateService;
 
 @RestController
 @RequestMapping("/states")
 public class StateController {
-  
-  @Autowired
-  private StateRepository stateRepository;
 
   @Autowired
   private StateService stateService;
 
   @GetMapping
   public List<State> findAll() {
-    return stateRepository.findAll();
+    return stateService.findAll();
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<State> findOne(@PathVariable Long id) {
-    State state = stateRepository.findById(id);
+  public ResponseEntity<?> findOne(@PathVariable Long id) {
+    try {
+      State state = stateService.findById(id);
 
-    if(state != null) {
       return ResponseEntity.ok().body(state);
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
-
-    return ResponseEntity.notFound().build();
-
   }
 
   @PostMapping
@@ -57,18 +52,22 @@ public class StateController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<State> update(@PathVariable Long id, @RequestBody State state) {
-    State savedState = stateRepository.findById(id);
+  public ResponseEntity<?> update(@PathVariable Long id, @RequestBody State state) {
+    try {
+      State savedState = stateService.findById(id);
 
-    if(savedState != null) {
-      BeanUtils.copyProperties(state, savedState, "id");
+      if(savedState != null) {
+        BeanUtils.copyProperties(state, savedState, "id");
 
-      savedState = stateService.save(savedState);
+        savedState = stateService.save(savedState);
 
-      return ResponseEntity.ok().body(savedState);
+        return ResponseEntity.ok().body(savedState);
+      }
+
+      return ResponseEntity.notFound().build();
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
-
-    return ResponseEntity.notFound().build();
   }
 
   @DeleteMapping("/{id}")
