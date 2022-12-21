@@ -1,17 +1,7 @@
 package com.myfood.myfood.domain.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.myfood.myfood.domain.model.Restaurant;
 
-public interface RestaurantRepository {
-  
-  List<Restaurant> findAll();
-
-  Restaurant findById(Long id);
-
-  Restaurant save(Restaurant kitchen);
-
-  void remove(Restaurant kitchen);
-
-}
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {}

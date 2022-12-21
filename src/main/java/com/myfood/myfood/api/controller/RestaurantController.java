@@ -16,39 +16,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myfood.myfood.domain.exception.EntityNotFoundException;
 import com.myfood.myfood.domain.model.Restaurant;
-import com.myfood.myfood.domain.repository.RestaurantRepository;
 import com.myfood.myfood.domain.service.RestaurantService;
 
 @RestController
 @RequestMapping("/restaurants")
 public class RestaurantController {
-  
-  @Autowired
-  private RestaurantRepository restaurantRepository;
 
   @Autowired
   private RestaurantService restaurantService;
 
   @GetMapping
   public List<Restaurant> findAll() {
-    return restaurantRepository.findAll();
+    return restaurantService.findAll();
+  }
+
+  @GetMapping("/{id}")
+  public Restaurant findById(@PathVariable Long id) {
+    return restaurantService.findById(id);
   }
 
   @PostMapping
   public ResponseEntity<?> create(@RequestBody Restaurant restaurant) {
     try {
-      restaurant = restaurantService.save(restaurant);
-    
-      return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
-    } catch(EntityNotFoundException e) {
-      return ResponseEntity.badRequest().body(e.getMessage());
-    }
+			restaurant = restaurantService.save(restaurant);
+			return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Restaurant restaurant) {
     try {
-      Restaurant savedRestaurant = restaurantRepository.findById(id);
+      Restaurant savedRestaurant = restaurantService.findById(id);
   
       if(savedRestaurant != null) {
         BeanUtils.copyProperties(restaurant, savedRestaurant, "id");
