@@ -8,7 +8,7 @@
 
 - [Spring](https://spring.io/)
 - [Java](https://www.java.com/pt-BR/)
-- [PostgreSQL](https://www.postgresql.org/)
+- [MySQL](https://www.mysql.com/)
 - [Lombok](https://projectlombok.org/)
 - [Swagger](https://swagger.io/)
 
