@@ -1,6 +1,7 @@
 package com.myfood.myfood.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,9 +19,9 @@ public class KitchenService {
   @Autowired
   private KitchenRepository kitchenRepository;
 
-  public List<Kitchen> findAll(String name) {
-    if(name != null) {
-      return kitchenRepository.findByNameContaining(name);
+  public List<Kitchen> findAll(Optional<String> name) {
+    if(name.isPresent()) {
+      return kitchenRepository.findByNameContaining(name.get());
     }
 
     return kitchenRepository.findAll();
