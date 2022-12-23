@@ -18,7 +18,11 @@ public class KitchenService {
   @Autowired
   private KitchenRepository kitchenRepository;
 
-  public List<Kitchen> findAll() {
+  public List<Kitchen> findAll(String name) {
+    if(name != null) {
+      return kitchenRepository.findByNameContaining(name);
+    }
+
     return kitchenRepository.findAll();
   }
 

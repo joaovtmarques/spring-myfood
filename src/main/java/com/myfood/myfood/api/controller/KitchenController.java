@@ -34,8 +34,8 @@ public class KitchenController {
   private KitchenService kitchenService;
 
   @GetMapping
-  public List<Kitchen> findAll() {
-    return kitchenService.findAll();
+  public List<Kitchen> findAll(String name) {
+    return kitchenService.findAll(name);
   }
 
   @GetMapping("/{id}")
