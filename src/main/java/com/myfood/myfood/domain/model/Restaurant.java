@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +37,10 @@ public class Restaurant {
 
   @ManyToOne
   private Kitchen kitchen;
+
+  @JsonIgnore
+  @Embedded
+  private Adress adress;
 
   @JsonIgnore
   @ManyToMany
