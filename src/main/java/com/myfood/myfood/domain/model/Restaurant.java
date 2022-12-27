@@ -1,8 +1,12 @@
 package com.myfood.myfood.domain.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +45,16 @@ public class Restaurant {
   @JsonIgnore
   @Embedded
   private Adress adress;
+
+  @JsonIgnore
+  @CreationTimestamp
+  @Column(nullable = false, columnDefinition = "datetime")
+  private LocalDateTime createdAt;
+
+  @JsonIgnore
+  @UpdateTimestamp
+  @Column(nullable = false, columnDefinition = "datetime")
+  private LocalDateTime updatedAt;
 
   @JsonIgnore
   @ManyToMany
